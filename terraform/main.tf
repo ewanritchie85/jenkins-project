@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket = "ewan-tfstate-bucket"
-    key    = "terraform/terraform.tfstate"
+    key    = "terraform.tfstate"
     region = "eu-west-2"
   }
 }
