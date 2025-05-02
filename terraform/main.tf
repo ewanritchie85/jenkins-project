@@ -10,12 +10,13 @@ terraform {
     key    = "terraform.tfstate"
     region = "eu-west-2"
     encrypt = true
+    profile = "ten10"
   }
 }
 
 provider "aws" {
-  region  = "${var.region}"
-  profile = "${var.profile}"
+  region  = var.region
+  profile = var.profile
 
   default_tags {
     tags = {
