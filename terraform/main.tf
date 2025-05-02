@@ -10,7 +10,7 @@ terraform {
     key    = "terraform.tfstate"
     region = "eu-west-2"
     encrypt = true
-    profile = "ten10"
+    # profile = "ten10"
     
   }
 }
