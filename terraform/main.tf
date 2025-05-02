@@ -8,7 +8,7 @@ terraform {
   backend "s3" {
     bucket = "ewan-tfstate-bucket"
     key    = "terraform/terraform.tfstate"
-    region = var.region
+    region = "eu-west-2"
   }
 }
 
@@ -18,7 +18,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Training = "Platform Engineering 1"
+      Training = "Platform Engineering Jenkins Project"
     }
   }
 }
