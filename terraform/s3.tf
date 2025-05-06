@@ -15,17 +15,17 @@ resource "aws_s3_bucket_website_configuration" "s3_website_config" {
   }
 
   error_document {
-    key = "error.html"
+    key = "index.html"
   }
 
-  routing_rule {
-    condition {
-      key_prefix_equals = "docs/"
-    }
-    redirect {
-      replace_key_prefix_with = "documents/"
-    }
-  }
+#   routing_rule {
+#     condition {
+#       key_prefix_equals = "docs/"
+#     }
+#     redirect {
+#       replace_key_prefix_with = "documents/"
+#     }
+#   }
 }
 
 resource "aws_s3_bucket_public_access_block" "frontend_block" {
