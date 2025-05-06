@@ -18,14 +18,6 @@ resource "aws_s3_bucket_website_configuration" "s3_website_config" {
     key = "index.html"
   }
 
-#   routing_rule {
-#     condition {
-#       key_prefix_equals = "docs/"
-#     }
-#     redirect {
-#       replace_key_prefix_with = "documents/"
-#     }
-#   }
 }
 
 resource "aws_s3_bucket_public_access_block" "frontend_block" {
@@ -33,8 +25,8 @@ resource "aws_s3_bucket_public_access_block" "frontend_block" {
 
   block_public_acls       = false
   block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+#   ignore_public_acls      = false
+#   restrict_public_buckets = false
 }
 
 
