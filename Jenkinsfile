@@ -70,7 +70,7 @@ environment {
 stage('Upload Frontend to S3') {
     steps {
         withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
-            sh 'aws s3 sync frontend/dist/ s3://ewan-frontend-bucket --delete'
+            sh 'aws s3 sync frontend/dist s3://ewan-frontend-bucket --delete'
                 }
             }
         }
