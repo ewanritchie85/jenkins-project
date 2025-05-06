@@ -116,3 +116,10 @@ variable "nat_gateway_name" {
   default     = "ewan-nat-gateway"
 
 }
+
+variable "frontend_bucket_name" {
+  description = "S3 bucket name tag"
+  type        = string
+  default     = "ewan-frontend-bucket"
+
+}
