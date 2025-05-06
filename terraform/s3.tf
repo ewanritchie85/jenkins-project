@@ -39,7 +39,7 @@ resource "aws_s3_bucket_public_access_block" "frontend_block" {
 
 
 resource "aws_s3_bucket_policy" "frontend_policy" {
-  bucket = aws_s3_bucket.frontend.id
+  bucket = aws_s3_bucket.frontend_bucket.id
 
   policy = jsonencode({
     Version = "2012-10-17"
