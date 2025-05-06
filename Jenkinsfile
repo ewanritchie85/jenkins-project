@@ -13,13 +13,13 @@ environment {
     stages {
         stage('Checkout') {
             steps {
-                echo " *** checking out repo ***"
+                echo " *** checking out application repo ***"
                 checkout scmGit(
                     branches: [[name: '*/main']],
                     extensions: [], 
                     userRemoteConfigs: [[url: 'https://github.com/ewanritchie85/jenkins-project/']]
                 )
-                echo "*** repo checked out ***"
+                echo "*** application repo checked out ***"
             }
         }
 
@@ -35,6 +35,7 @@ environment {
 
         stage('Docker Push to ECR') {
     steps {
+        echo "*** pushing docker image to ECR ***"
         withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
             sh """
                 aws ecr get-login-password --region ${AWS_REGION} | \
@@ -42,6 +43,7 @@ environment {
                 docker push ${IMAGE_NAME}:${IMAGE_TAG}
             """
         }
+        echo "*** docker image pushed to ECR ***"
     }
 }
 
