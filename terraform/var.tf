@@ -14,7 +14,7 @@ variable "profile" {
 variable "docker_image" {
   description = "Docker image for the application"
   type        = string
-  default     = "654463037626.dkr.ecr.eu-west-2.amazonaws.com/ewan/jenkins-project"
+  default     = "654463037626.dkr.ecr.eu-west-2.amazonaws.com/ewan/jenkins-repo:latest"
 
 }
 
