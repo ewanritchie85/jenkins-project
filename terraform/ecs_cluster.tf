@@ -47,6 +47,16 @@ resource "aws_ecs_task_definition" "app_task" {
           containerPort = 80
           protocol      = "tcp"
         }
+      ],
+      environment = [
+        {
+          name  = "PORT"
+          value = "80"
+        },
+        {
+          name  = "NODE_ENV"
+          value = "production"
+        }
       ]
     }
   ])
