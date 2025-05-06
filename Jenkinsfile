@@ -33,14 +33,16 @@ pipeline {
         }
 
         stage('Docker Push to ECR') {
-            steps {
-                script {
-                    docker.withRegistry("https://${ECR_URL}", 'ECR_CREDENTIALS') {
-                        docker.image("${IMAGE_NAME}").push("${IMAGE_TAG}")
-                    }
-                }
-            }
+    steps {
+        withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
+            sh """
+                aws ecr get-login-password --region ${AWS_REGION} | \
+                docker login --username AWS --password-stdin ${ECR_URL}
+                docker push ${IMAGE_NAME}:${IMAGE_TAG}
+            """
         }
+    }
+}
 
         stage('Terraform init') {
             steps {
