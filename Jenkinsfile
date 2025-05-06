@@ -1,13 +1,14 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = 'ewan/jenkins-repo'
-        IMAGE_TAG = 'latest'
-        AWS_REGION = "eu-west-2"
-        AWS_ACCOUNT_ID = '654463037626'
-        ECR_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-    }
+environment {
+    AWS_REGION = 'eu-west-2'
+    AWS_ACCOUNT_ID = '654463037626'
+    ECR_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+    IMAGE_NAME = "${ECR_URL}/ewan/jenkins-repo"
+    IMAGE_TAG = 'latest'
+}
+
 
     stages {
         stage('Checkout') {
