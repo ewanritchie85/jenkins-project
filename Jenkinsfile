@@ -72,7 +72,7 @@ stage('Upload Frontend to S3') {
         script {
             s3Upload(
                 bucket: 'ewan-frontend-bucket',
-                file: 'frontend/dist',
+                file: 'frontend/dist/',
                 path: '',
                 profile: 'ewan-s3-profile',
                 region: 'eu-west-2'
