@@ -7,11 +7,11 @@ resource "aws_s3_bucket" "frontend_bucket" {
   }
 }
 
-resource "aws_s3_bucket_website_configuration" "example" {
+resource "aws_s3_bucket_website_configuration" "s3_website_config" {
   bucket = aws_s3_bucket.frontend_bucket.id
 
   index_document {
-    suffix = "frontend/dist/index.html"
+    suffix = "index.html"
   }
 
   error_document {
