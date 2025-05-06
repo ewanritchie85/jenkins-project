@@ -11,7 +11,7 @@ resource "aws_s3_bucket_website_configuration" "example" {
   bucket = aws_s3_bucket.frontend_bucket.id
 
   index_document {
-    suffix = "index.html"
+    suffix = "frontend/dist/index.html"
   }
 
   error_document {
