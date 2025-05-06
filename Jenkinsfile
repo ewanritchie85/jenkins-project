@@ -66,13 +66,24 @@ environment {
                 }
             }
         }
+        stage('Build Frontend') {
+            steps {
+                echo "*** building frontend ***"
+                dir('frontend') {
+                    sh 'npm ci'
+                    sh 'npm run build'
+                }
+                echo "*** frontend built ***"
+            }
+        }
 
-stage('Upload Frontend to S3') {
-    steps {
-        withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
-            sh 'aws s3 sync frontend/dist s3://ewan-frontend-bucket --delete'
+
+        stage('Upload Frontend to S3') {
+            steps {
+                withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
+                    sh 'aws s3 sync frontend/dist s3://ewan-frontend-bucket --delete'
+                        }
+                    }
                 }
             }
         }
-    }
-}
