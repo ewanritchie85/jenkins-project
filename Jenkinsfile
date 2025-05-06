@@ -69,19 +69,10 @@ environment {
 
 stage('Upload Frontend to S3') {
     steps {
-        script {
-            s3Upload(
-                bucket: 'ewan-frontend-bucket',
-                file: 'frontend/dist/',
-                path: '',
-                profile: 'ewan-s3-profile',
-                region: 'eu-west-2'
-            )
+        withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
+            sh 'aws s3 sync frontend/dist/ s3://ewan-frontend-bucket --delete'
+                }
+            }
         }
     }
-}
-
-
-        
-}
 }
