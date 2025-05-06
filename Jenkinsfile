@@ -29,7 +29,7 @@ environment {
                 script {
                     docker.build("${IMAGE_NAME}", "./backend")
                 }
-                echo "*** docker image built ***"
+                echo "*** docker image built **"
             }
         }
 
