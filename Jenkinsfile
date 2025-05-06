@@ -45,7 +45,7 @@ pipeline {
         stage('Terraform init') {
             steps {
                 dir('terraform'){
-                    withAWS(credentials:'654463037626') {
+                    withAWS(credentials:'ECR_CREDENTIALS') {
                         sh 'terraform init'
                     }
                 }
@@ -55,7 +55,7 @@ pipeline {
         stage('Terraform apply') {
             steps {
                 dir('terraform'){
-                    withAWS(credentials:'654463037626'){
+                    withAWS(credentials:'ECR_CREDENTIALS'){
                 sh 'terraform apply --auto-approve'
                     }
                 }
