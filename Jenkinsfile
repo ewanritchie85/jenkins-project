@@ -66,6 +66,28 @@ environment {
                 }
             }
         }
+
+        stage('Upload Frontend to S3') {
+    steps {
+        s3Upload(
+            pluginFailureResultConstraint: 'FAILURE',
+            entries: [
+                [
+                    bucket: 'ewan-frontend-bucket',
+                    sourceFile: 'frontend/dist',
+                    selectedRegion: 'eu-west-2',
+                    storageClass: 'STANDARD',
+                    noUploadOnFailure: false,
+                    flatten: false,
+                    showDirectlyInBrowser: false,
+                    managedArtifacts: false
+                ]
+            ],
+            profileName: 'ewan-s3-profile'
+        )
+    }
+}
+
         
 }
 }
