@@ -25,7 +25,7 @@ environment {
 
         stage('Docker Build') {
             steps {
-                echo "*** building docker image **"
+                echo "*** building docker image ***"
                 script {
                     docker.build("${IMAGE_NAME}", "./backend")
                 }
