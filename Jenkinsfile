@@ -35,6 +35,9 @@ pipeline {
                 echo "*** running backend tests ***"
                 dir('backend') {
                     sh 'npm ci'
+                    npm 'install --save-dev ts-jest'
+                    // sh 'npm install --save-dev jest @types/jest'
+                    sh 'npx ts-jest config:init'
                     sh 'npm test'
                 }
                 echo "*** backend tests completed ***"
