@@ -37,7 +37,6 @@ pipeline {
                     sh 'npm ci'
                     sh 'npm install --save-dev ts-jest'
                     sh 'npm install --save-dev jest @types/jest'
-                    sh 'npx ts-jest config:init'
                     sh 'npm test'
                 }
                 echo "*** backend tests completed ***"
