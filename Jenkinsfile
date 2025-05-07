@@ -1,13 +1,22 @@
 pipeline {
     agent any
 
-environment {
-    AWS_REGION = 'eu-west-2'
-    AWS_ACCOUNT_ID = '654463037626'
-    ECR_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-    IMAGE_NAME = "${ECR_URL}/ewan/jenkins-repo"
-    IMAGE_TAG = 'latest'
-}
+    environment {
+        AWS_REGION = 'eu-west-2'
+        IMAGE_TAG = 'latest'
+    }
+
+    stages {
+        stage('Init Vars') {
+            steps {
+                withCredentials([string(credentialsId: 'AWS_ACCOUNT_ID', variable: 'AWS_ACCOUNT_ID')]) {
+                    script {
+                        env.ECR_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+                        env.IMAGE_NAME = "${env.ECR_URL}/ewan/jenkins-repo"
+                    }
+                }
+            }
+        }
 
 
     stages {
