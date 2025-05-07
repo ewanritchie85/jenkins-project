@@ -18,14 +18,12 @@ pipeline {
             }
         }
 
-
-    stages {
         stage('Checkout') {
             steps {
                 echo " *** checking out application repo ***"
                 checkout scmGit(
                     branches: [[name: '*/main']],
-                    extensions: [], 
+                    extensions: [],
                     userRemoteConfigs: [[url: 'https://github.com/ewanritchie85/jenkins-project/']]
                 )
                 echo "*** application repo checked out ***"
@@ -38,28 +36,28 @@ pipeline {
                 script {
                     docker.build("${IMAGE_NAME}", "./backend")
                 }
-                echo "*** docker image built **"
+                echo "*** docker image built ***"
             }
         }
 
         stage('Docker Push to ECR') {
-    steps {
-        echo "*** pushing docker image to ECR ***"
-        withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
-            sh """
-                aws ecr get-login-password --region ${AWS_REGION} | \
-                docker login --username AWS --password-stdin ${ECR_URL}
-                docker push ${IMAGE_NAME}:${IMAGE_TAG}
-            """
+            steps {
+                echo "*** pushing docker image to ECR ***"
+                withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
+                    sh """
+                        aws ecr get-login-password --region ${AWS_REGION} | \
+                        docker login --username AWS --password-stdin ${ECR_URL}
+                        docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                    """
+                }
+                echo "*** docker image pushed to ECR ***"
+            }
         }
-        echo "*** docker image pushed to ECR ***"
-    }
-}
 
         stage('Terraform init') {
             steps {
-                dir('terraform'){
-                    withAWS(credentials:'ECR_CREDENTIALS') {
+                dir('terraform') {
+                    withAWS(credentials: 'ECR_CREDENTIALS') {
                         sh 'terraform init'
                     }
                 }
@@ -68,13 +66,14 @@ pipeline {
 
         stage('Terraform apply') {
             steps {
-                dir('terraform'){
-                    withAWS(credentials:'ECR_CREDENTIALS'){
-                sh 'terraform apply --auto-approve'
+                dir('terraform') {
+                    withAWS(credentials: 'ECR_CREDENTIALS') {
+                        sh 'terraform apply --auto-approve'
                     }
                 }
             }
         }
+
         stage('Build Frontend') {
             steps {
                 echo "*** building frontend ***"
@@ -86,14 +85,12 @@ pipeline {
             }
         }
 
-
         stage('Upload Frontend to S3') {
             steps {
                 withAWS(credentials: 'ECR_CREDENTIALS', region: "${AWS_REGION}") {
                     sh 'aws s3 sync frontend/dist s3://ewan-frontend-bucket --delete'
-                        }
-                    }
                 }
             }
         }
+    }
 }
