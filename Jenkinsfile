@@ -30,6 +30,17 @@ pipeline {
             }
         }
 
+        stage('Backend Testing') {
+            steps {
+                echo "*** running backend tests ***"
+                dir('backend') {
+                    sh 'npm ci'
+                    sh 'npm test'
+                }
+                echo "*** backend tests completed ***"
+            }
+        }
+
         stage('Docker Build') {
             steps {
                 echo "*** building docker image ***"
