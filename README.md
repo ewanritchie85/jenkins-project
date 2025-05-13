@@ -1,4 +1,4 @@
 
 
 
-<img src="./Jenkins_project_diagram.jpeg" alt="AWS infrastructure diagram"></img>
+<img src="./Jenkins_project_diagram.jpg" alt="AWS infrastructure diagram"></img>
